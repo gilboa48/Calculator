@@ -28,17 +28,23 @@ keys.addEventListener ('click', function (event) {
 	}
 	/*when an operator button is pressed*/
 	if (event.target.classList.contains('operator')){
+		//in case operator pressed imediatly after another operator
+		if (operatorPressed === true && action != "") {
+			action ="";
+		}
+		//main calculation segment
 		if (action === "") {
 			lastNumber = parseFloat(screen.value);
 		} else {
 			currentNumber=parseFloat(screen.value);
-			lastNumber = calculate(lastNumber,action,currentNumber);		
+			lastNumber = calculate(lastNumber,action,currentNumber);
+			screen.value = lastNumber;		
 		}
 		action = event.target.textContent;
 		event.target.style.background = "#96E3A9";
 		operatorPressed = true;
-		screen.value = lastNumber;
-
+		
+		//when = is pressed
 		if (event.target.textContent === "=") {
 			event.target.style.background="";
 			screen.value = lastNumber;
